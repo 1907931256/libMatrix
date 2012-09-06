@@ -1,6 +1,6 @@
 #include<stdlib.h>
 #include<time.h>
-#include<vector.h>
+#include<LMT_VECTOR1.h>
 
 int main()
 {

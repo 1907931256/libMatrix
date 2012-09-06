@@ -148,15 +148,15 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\src\libMat0.cpp"
+				RelativePath="..\src\LMT_MATRIX.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\libMat1.cpp"
+				RelativePath="..\src\LMT_VECTOR1.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\libVec0.cpp"
+				RelativePath="..\src\LMT_VECTOR2.cpp"
 				>
 			</File>
 		</Filter>
@@ -166,15 +166,15 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\include\matrix.h"
+				RelativePath="..\include\LMT_MATRIX.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\matrixVec.h"
+				RelativePath="..\include\LMT_VECTOR1.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\vector.h"
+				RelativePath="..\include\LMT_VECTOR2.h"
 				>
 			</File>
 		</Filter>
