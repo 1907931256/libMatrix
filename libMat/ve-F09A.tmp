@@ -1,0 +1,60 @@
+//-----------------
+//
+//	1. all function are passed-by-reference , to save memory and increase efficiency
+//		for those arguments prefix by 'const' , means they'r input arguments
+//------------------
+#include<stdio.h>
+#include<stdlib.h>
+#include<malloc.h>
+
+#define ELEMTYPE	double			// possible to change type
+
+//------------------------------
+//	OPTION when initializing
+//------------------------------
+#define OPTION_IDENTITY		0x01	// initializing as identity matrix
+#define	OPTION_ZEROMAT		0x02	// initializing as zero		matrix
+
+typedef struct	matrixHeader_st	MATRIX_HEADER;
+typedef	struct	matrix_st		MATRIX;					// the abstrct class of matrix/vector
+struct matrixHeader_st
+{
+	//---------------------------------------------------------------------
+	//	COMMON ATTRIBUTE FOR BOTH STATIC/DYNAMIC/attribute dimension matrix
+	//	for controlling dimension information
+	//---------------------------------------------------------------------
+	int	matId	;
+	size_t	_m	;		//	dimension 1
+	size_t	_n	;		//	dimension 2
+};
+
+#define _MATRIX( m , n )	struct{MATRIX_HEADER attr;double body[m][n];}
+struct matrix_st
+{
+	//---------------------------------
+	//	generic type used to casting up
+	//---------------------------------
+	MATRIX_HEADER	attr;
+
+	ELEMTYPE		body;
+};
+
+
+int		matInitialize	(MATRIX*,const size_t rows,const size_t columns,char option);		// intializing matrix according to unique type-id
+																							// no dynamic matrix avaliable
+int		matMarkId		(MATRIX*,const size_t	id);
+
+//----------------------------------------------------------------------
+//	Accessing Element , return values are error code for every functions
+//----------------------------------------------------------------------
+int		matGetElement	(const	MATRIX*	,const size_t	row,const size_t	column,double*	value);
+int		matGetSubmatrix	(const	MATRIX*	,const size_t	row,const size_t	column,MATRIX*	submatrix);
+int		matSetElement	(MATRIX*	,const size_t	row,const size_t	column,const double value);
+int		matSetAll		(MATRIX*	,const double value);			// matrix magnitude
+int		matAssign		(const	MATRIX*	rhs,MATRIX*	lhs);			// rhp = right-hand side , lhs = rhs
+
+int		matScalarMultiply	(const MATRIX* left,const double	scalar		,MATRIX*	result);
+int		matMultiply			(const MATRIX* left,const MATRIX*	right		,MATRIX*	result);
+int		matAdd				(const MATRIX* operand1,const MATRIX*	operand2,MATRIX*	result);
+int		matDotProduct		(const MATRIX* left,const MATRIX* right,double*	result);
+int		matNorm2			(const MATRIX*,double*	norm2);		// norm-2(normFrobenius) , such as vector

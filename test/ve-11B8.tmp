@@ -1,0 +1,12 @@
+#include"d:\workdir\vs2005projects\libMat\libMat\matrix.h"
+
+#define MATRIX(m,n)	struct{int matId;/*static const*/ size_t _m /*= m*/;/*static const*/ size_t _n/*=n*/;double body[m][n];}
+//#define ROW_VECTOR
+//#define COL_VECTOR
+
+int main()
+{
+	MATRIX(2,3) mat;
+	struct	st{int a;const int i=3;}	m;
+	return 0;
+}
