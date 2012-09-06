@@ -12,6 +12,7 @@ int	(&vecSetAll)(VECTOR*,const double)	 =	matSetAll;
 int	(&vecAssign)(VECTOR*,VECTOR*)		 =	matAssign;
 int	(&vecLength)(VECTOR*,double*)		 =	matNorm2;
 int	(&vecAdd)	(VECTOR*,VECTOR*,VECTOR*)=	matAdd;
+int	(&vecScalarMultiply)(VECTOR*,const double,VECTOR*) = matScalarMultiply;
 
 int		vecInitialize(VECTOR* v,const size_t length)
 {
@@ -70,5 +71,10 @@ int		vecDotProduct		(VECTOR* v1,VECTOR* v2,double*	scalar)
 		*scalar +=	
 		v1->attr.bodyAdr[elemIndex] * v2->attr.bodyAdr[elemIndex];
 
+	return 1;
+}
+
+int			vecUnit(VECTOR*,VECTOR*)
+{
 	return 1;
 }
