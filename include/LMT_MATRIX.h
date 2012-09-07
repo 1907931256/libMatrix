@@ -9,6 +9,7 @@
 //	2. namespace: mat
 //	3. lack of error prevent machanism , due to this library is mainly used by
 //			us RDs , we should manuelly prevent coding-error.
+//	4. accessing index beginning from ZERO
 //----------------------------------------------------------------------------------
 #ifndef	_MATRIX_H
 #define _MATRIX_H
@@ -44,7 +45,7 @@ struct matrix_st
 	char			body;
 };
 
-//MATRIX*	matCreateInStack(const size_t row,const size_t cols);				// use void *_malloca() , to create matrix in stack
+//MATRIX*	matCreateInStack(const size_t row,const size_t cols);			// use void *_malloca() , to create matrix in stack
 int		matInitialize	(MATRIX*,const size_t rows,const size_t columns);	// intializing matrix according to unique type-id
 																			// no dynamic(heap) matrix avaliable
 int		matIdentity		(MATRIX*);
@@ -53,21 +54,20 @@ int		matMarkId		(MATRIX*,const size_t	id);
 //----------------------------------------------------------------------
 //	Element Accessing, return values are error code for every functions
 //----------------------------------------------------------------------
-/*int*/ELEMTYPE		matGetElement	(MATRIX*	
+ELEMTYPE		matGetElement	(MATRIX*	
 						 ,const size_t	rowIndex
-						 ,const size_t	colIndex
-						 /*,double*	value*/);			// index beginning from ZERO
+						 ,const size_t	colIndex);			// index beginning from ZERO
 int		matGetSubmatrix	(MATRIX*	
 						 ,const size_t	fr
 						 ,const size_t	lr
 						 ,const size_t	fc
 						 ,const size_t	lc
-						 ,MATRIX*	submatrix);		// index beginning from ZERO
+						 ,MATRIX*	submatrix);			// index beginning from ZERO
 
 int		matSetElement	(MATRIX*	
 						 ,const size_t	rowIndex
 						 ,const size_t	colIndex
-						 ,const double value);		// index beginning from ZERO
+						 ,const double value);			// index beginning from ZERO
 int		matSetAll		(MATRIX*	,const double value);			// matrix magnitude
 int		matAssign		(MATRIX*	rhs,MATRIX*	lhs);				// rhp = right-hand side , lhs = rhs
 
@@ -75,15 +75,15 @@ int		matScalarMultiply	(MATRIX* left,const double	scalar		,MATRIX*	result);	//	r
 int		matMultiply			(MATRIX* left,MATRIX*	right,MATRIX*	result);				//	result = left*right
 int		matAdd				(MATRIX* operand1,MATRIX*	operand2	,MATRIX*	result);	//	result = operand1 + operand2
 int		matMinus			(MATRIX* minuend ,MATRIX*	subtrahend	,MATRIX*	result);
-/*int*/ELEMTYPE		matNorm2			(MATRIX* mat/*,double*	norm2*/);					//	norm-2(normFrobenius) , such as vector	
-																							//	squart(sigma(element^2))																							
-																							//	generic definition for all matrix
-																							//	Function Prototype Changed , return required value
+ELEMTYPE		matNorm2(MATRIX* mat);					//	norm-2(normFrobenius) , such as vector	
+														//	squart(sigma(element^2))																							
+														//	generic definition for all matrix
+														//	Function Prototype Changed , return required value
 //---------------
 //	Advenced operation
 //---------------
-int		matDeterminant		(MATRIX*,double*	det);	// not implemented
-int		matInverse			(MATRIX*,MATRIX*);			// not implemented
+ELEMTYPE		matDeterminant		(MATRIX*);	// not implemented
+int					matInverse		(MATRIX* mat,MATRIX* matAfterInverse);			// not implemented
 
 #endif
 																							

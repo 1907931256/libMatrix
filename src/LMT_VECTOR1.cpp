@@ -10,7 +10,7 @@
 
 int	(&vecSetAll)(VECTOR*,const double)	 =	matSetAll;
 int	(&vecAssign)(VECTOR*,VECTOR*)		 =	matAssign;
-/*int*/ELEMTYPE	(&vecLength)(VECTOR*/*,double**/)		 =	matNorm2;
+ELEMTYPE	(&vecLength)(VECTOR*)		 =	matNorm2;
 int	(&vecAdd)	(VECTOR*,VECTOR*,VECTOR*)=	matAdd;		// added by Hsien 
 int	(&vecMinus)	(VECTOR*,VECTOR*,VECTOR*) = matMinus;
 int	(&vecScalarMultiply)(VECTOR*,const double,VECTOR*) = matScalarMultiply;
@@ -77,7 +77,9 @@ int		vecCrossProduct		(VECTOR* v1,VECTOR* v2,VECTOR*	vPerpendicular)
 	//--------------------------
 	//	extension of matMultiply
 	//		iterated by _m , Hsien , 2012.09.06
-	//--------------------------
+	//	Function Prototype Changed , return required value
+	//		Hsien , 2012.09.07 , recommented by Peter
+	//----------------------------------------------------
 	/**scalar = 0;*/
 	ELEMTYPE scalar = 0;
 	for(size_t	elemIndex = 0;elemIndex < v1->attr._m ; elemIndex++)

@@ -14,7 +14,6 @@
 
 typedef	struct	matrix_st	ROW_VECTOR;
 typedef struct	matrix_st	COL_VECTOR;
-//typedef	int (*fp_type4)(VECTOR*,const size_t)			;
 
 #define _ROW_VECTOR( i )	struct{MATRIX_HEADER attr;ELEMTYPE body[i];}	// template macro to declare matrix object 
 #define _COL_VECTOR( j )	struct{MATRIX_HEADER attr;ELEMTYPE body[j];}	// template macro to declare matrix object 
