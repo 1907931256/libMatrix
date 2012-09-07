@@ -70,20 +70,22 @@ int		matIdentity		(MATRIX*	mat)
 	return 1;
 }
 
-int		matGetElement	(MATRIX*	mat,const size_t	row,const size_t	col,double*	value)
+ELEMTYPE		matGetElement	(MATRIX*	mat,const size_t	row,const size_t	col/*,double*	value*/)
 {
 	//---------------
-	//	Over-index , Zero-index checking
+	//	Over-index checking
+	//		All index are normalized to beginning from ZERO
+	//		Hsien , 2012.09.07
+	//	Function Prototype Changed , return required value
+	//		Hsien , 2012.09.07 , recommented by Peter
 	//---------------
-	if(row > mat->attr._m
-		|| col > mat->attr._n
-		|| row == 0
-		|| col == 0)
+	if(row >= mat->attr._m
+		|| col >= mat->attr._n) // over-index condition , index greater/equal to length
 		return 0;
 
-	*value = mat->attr.bodyAdr[(row-1) * mat->attr._n + (col-1)];
+	/*value =*/ return mat->attr.bodyAdr[row/*(row-1)*/ * mat->attr._n + col/*(col-1)*/];
 
-	return 1;
+	/*return 1;*/
 }
 int		matGetSubmatrix	(MATRIX*	mainMat
 						 ,const size_t	fr
@@ -95,11 +97,13 @@ int		matGetSubmatrix	(MATRIX*	mainMat
 	//------------------------------------------------------------
 	//	dimension checking , fr,lr,fc,lc should be consistent with 
 	//		dimension of submatrix and mainmatrix
+	//		All index are normalized to beginning from ZERO
+	//		Hsien , 2012.09.07
 	//------------------------------------------------------------
 	size_t	sm,sn,elemShift;		// dimension of required submatrix
 	sm = lr - fr + 1;
 	sn = lc - fc + 1;
-	elemShift = (fr -1)*mainMat->attr._n + (fc -1);
+	elemShift = /*(fr -1)*/fr * mainMat->attr._n + /*(fc -1)*/fc;
 
 	if(sm > subMat->attr._m
 		|| sn > subMat->attr._n)
@@ -121,12 +125,14 @@ int		matSetElement	(MATRIX*	mat,const size_t	row,const size_t	col,const double v
 	//	Over-index checking
 	//	row : beginning at 1
 	//	col : as well
+	//		All index are normalized to beginning from ZERO
+	//		Hsien , 2012.09.07
 	//---------------------
-	if(row > mat->attr._m
-		|| col > mat->attr._n)
+	if(row >= mat->attr._m
+		|| col >= mat->attr._n)		// over-index condition , index greater/equal to length
 		return 0;
 
-	mat->attr.bodyAdr[(row-1) * mat->attr._n + (col-1)] = value;
+	mat->attr.bodyAdr[row/*(row-1)*/ * mat->attr._n + col/*(col-1)*/] = value;
 
 	return 1;
 }
@@ -205,18 +211,20 @@ int		matMinus			(MATRIX* minuend ,MATRIX*	subtrahend	,MATRIX*	result)
 	return 1;
 }
 
-int		matNorm2			(MATRIX* mat,double*	norm2)
+/*int*/ELEMTYPE		matNorm2			(MATRIX* mat/*,double*	norm2*/)
 {
-	//--------------------
-	//
-	//--------------------
+	//-----------------------------------------------------
+	//	Function Prototype Changed , return required value
+	//		Hsien , 2012.09.07 , recommented by Peter
+	//----------------------------------------------------
 	ELEMTYPE	buffer = 0;
 
 	for(size_t i=0;i< (mat->attr._m * mat->attr._n); i++)
 		buffer += pow(mat->attr.bodyAdr[i],2);
-	*norm2 = sqrt(buffer);
+	/**norm2*/buffer = sqrt(buffer);
 
-	return 1;
+	/*return 1;*/
+	return buffer;
 }
 
 

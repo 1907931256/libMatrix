@@ -30,8 +30,8 @@ struct matrixHeader_st
 	//	for controlling dimension information
 	//---------------------------------------------------------------------
 	int	matId	;
-	size_t	_m	;		//	dimension m	, number of rows	, beginning at ONE
-	size_t	_n	;		//	dimension n	, number of columns	, beginning at ONE
+	size_t	_m	;		//	dimension m	, number of rows	
+	size_t	_n	;		//	dimension n	, number of columns	
 	ELEMTYPE	*bodyAdr;	// used to recoding body's base address
 };
 
@@ -53,27 +53,32 @@ int		matMarkId		(MATRIX*,const size_t	id);
 //----------------------------------------------------------------------
 //	Element Accessing, return values are error code for every functions
 //----------------------------------------------------------------------
-int		matGetElement	(MATRIX*	
-						 ,const size_t	row
-						 ,const size_t	column
-						 ,double*	value);
+/*int*/ELEMTYPE		matGetElement	(MATRIX*	
+						 ,const size_t	rowIndex
+						 ,const size_t	colIndex
+						 /*,double*	value*/);			// index beginning from ZERO
 int		matGetSubmatrix	(MATRIX*	
 						 ,const size_t	fr
 						 ,const size_t	lr
 						 ,const size_t	fc
 						 ,const size_t	lc
-						 ,MATRIX*	submatrix);
+						 ,MATRIX*	submatrix);		// index beginning from ZERO
 
-int		matSetElement	(MATRIX*	,const size_t	row,const size_t	column,const double value);
+int		matSetElement	(MATRIX*	
+						 ,const size_t	rowIndex
+						 ,const size_t	colIndex
+						 ,const double value);		// index beginning from ZERO
 int		matSetAll		(MATRIX*	,const double value);			// matrix magnitude
-int		matAssign		(MATRIX*	rhs,MATRIX*	lhs);			// rhp = right-hand side , lhs = rhs
+int		matAssign		(MATRIX*	rhs,MATRIX*	lhs);				// rhp = right-hand side , lhs = rhs
 
 int		matScalarMultiply	(MATRIX* left,const double	scalar		,MATRIX*	result);	//	result = scalar*left
-int		matMultiply			(MATRIX* left,MATRIX*	right,MATRIX*	result);	//	result = left*right
+int		matMultiply			(MATRIX* left,MATRIX*	right,MATRIX*	result);				//	result = left*right
 int		matAdd				(MATRIX* operand1,MATRIX*	operand2	,MATRIX*	result);	//	result = operand1 + operand2
 int		matMinus			(MATRIX* minuend ,MATRIX*	subtrahend	,MATRIX*	result);
-int		matNorm2			(MATRIX*,double*	norm2);										//	norm-2(normFrobenius) , such as vector	
-																							//	squart(sigma(element^2))																							//	generic definition for all matrix
+/*int*/ELEMTYPE		matNorm2			(MATRIX* mat/*,double*	norm2*/);					//	norm-2(normFrobenius) , such as vector	
+																							//	squart(sigma(element^2))																							
+																							//	generic definition for all matrix
+																							//	Function Prototype Changed , return required value
 //---------------
 //	Advenced operation
 //---------------

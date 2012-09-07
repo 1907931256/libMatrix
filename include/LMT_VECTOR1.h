@@ -21,8 +21,8 @@ int			vecInitialize		(VECTOR* v,const size_t length);
 //-----------------
 //	element accessing
 //------------------
-int			vecGetValue			(VECTOR* v,const size_t	index,double* value);
-int			vecSetValue			(VECTOR* v,const size_t	index,const double value);
+/*int*/ELEMTYPE			vecGetValue			(VECTOR* v,const size_t	index/*,double* value*/);		// index beginning from ZERO
+int			vecSetValue			(VECTOR* v,const size_t	index,const double value);	// index beginning from ZERO
 extern int	(&vecSetAll)(VECTOR*,const double);	// alias function , reuse
 extern int	(&vecAssign)(VECTOR* lhs,VECTOR* rhs);		// alias function , reuse
 														// operation: lhs = rhs;
@@ -30,11 +30,13 @@ extern int	(&vecAssign)(VECTOR* lhs,VECTOR* rhs);		// alias function , reuse
 //-------------------
 //	exclusive vector operations
 //-------------------
-extern int	(&vecLength)(VECTOR* v	,double*	length);
+extern /*int*/ELEMTYPE	(&vecLength)(VECTOR* v	/*,double*	length*/);
 extern int	(&vecAdd)	(VECTOR* v1	,VECTOR* v2,VECTOR* vResult);	
 extern int	(&vecMinus)	(VECTOR* vMinuend,VECTOR* vSubtrahend,VECTOR* vResult);	// vResult  = vMinuend - vSubtrahend
-int		vecDotProduct		(VECTOR* v1,VECTOR* v2,double*	scalar);			//	scalar = v1 . v2
-int		vecCrossProduct		(VECTOR* v1,VECTOR* v2,VECTOR*	vPerpendicular);	// dimension-3 vector valid only
+/*int*/ELEMTYPE		vecDotProduct		(VECTOR* v1,VECTOR* v2/*,double*	scalar*/);			//	scalar = v1 . v2
+int			vecCrossProduct		(VECTOR* v1,VECTOR* v2,VECTOR*	vPerpendicular);	// dimension-3 vector valid only
+ELEMTYPE	vecCrossProduct2D	(VECTOR* v1,VECTOR* v2);							// dimension-2 vector valid only , Hsien , 2012.09.07
+																					// return = v1[0]*v2[1] + v1[1]*v2[0] , single component of other two parts of vector
 
 extern int	(&vecScalarMultiply)(VECTOR* v,const double scalar,VECTOR* vResult);
 int			vecUnit(VECTOR* v,VECTOR* vUnit);

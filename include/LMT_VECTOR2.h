@@ -14,7 +14,7 @@
 
 typedef	struct	matrix_st	ROW_VECTOR;
 typedef struct	matrix_st	COL_VECTOR;
-typedef	int (*fp_type4)(VECTOR*,const size_t)			;
+//typedef	int (*fp_type4)(VECTOR*,const size_t)			;
 
 #define _ROW_VECTOR( i )	struct{MATRIX_HEADER attr;ELEMTYPE body[i];}	// template macro to declare matrix object 
 #define _COL_VECTOR( j )	struct{MATRIX_HEADER attr;ELEMTYPE body[j];}	// template macro to declare matrix object 
@@ -24,9 +24,10 @@ typedef	int (*fp_type4)(VECTOR*,const size_t)			;
 //	, vectors are further categrories into rowVector and colVector
 //----------------------------------------------------------------
 int			rowVecInitialize(ROW_VECTOR*,const size_t cols);
-fp_type4	colVecInitialize = vecInitialize;
+extern int	(&colVecInitialize)(VECTOR*,const size_t);
+
 
 int		matGetRowVector	(MATRIX*,const size_t	row,ROW_VECTOR*);
-int		matGetColVector	(MATRIX*,const size_t	column,COL_VECTOR*);
+int		matGetColVector	(MATRIX*,const size_t	col,COL_VECTOR*);
 
 #endif

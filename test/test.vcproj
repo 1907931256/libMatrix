@@ -207,6 +207,18 @@
 			<File
 				RelativePath=".\vecTest2.cpp"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\vectTest3.cpp"
+				>
 			</File>
 		</Filter>
 		<Filter
