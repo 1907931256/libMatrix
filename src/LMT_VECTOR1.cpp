@@ -11,7 +11,8 @@
 int	(&vecSetAll)(VECTOR*,const double)	 =	matSetAll;
 int	(&vecAssign)(VECTOR*,VECTOR*)		 =	matAssign;
 int	(&vecLength)(VECTOR*,double*)		 =	matNorm2;
-int	(&vecAdd)	(VECTOR*,VECTOR*,VECTOR*)=	matAdd;
+int	(&vecAdd)	(VECTOR*,VECTOR*,VECTOR*)=	matAdd;		// added by Hsien 
+int	(&vecMinus)	(VECTOR*,VECTOR*,VECTOR*) = matMinus;
 int	(&vecScalarMultiply)(VECTOR*,const double,VECTOR*) = matScalarMultiply;
 
 int		vecInitialize(VECTOR* v,const size_t length)
@@ -74,7 +75,14 @@ int		vecDotProduct		(VECTOR* v1,VECTOR* v2,double*	scalar)
 	return 1;
 }
 
-int			vecUnit(VECTOR*,VECTOR*)
+int			vecUnit(VECTOR* v,VECTOR* vUnit)
 {
+	//-----------------
+	//	implemented @ 7.Sep.2012
+	//-----------------
+	double length = 0;
+	vecLength(v,&length);					// calculate length of vector
+	vecScalarMultiply(v,1/length,vUnit);	// vUnit = v/||v||;
+
 	return 1;
 }

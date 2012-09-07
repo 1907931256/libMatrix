@@ -11,9 +11,10 @@
 //	colIndex		= reminder(runningIndex/_n) + 1 , 
 //	runningIndex	= (rowIndex-1)*_n + (columnIndex-1)
 //	totalLength		= _m*_n;
-//-------------------------
+//----------------------------------------------------------------------------------
 #include<string.h>
-#include<math.h>
+#include<math.h>	
+#include<malloc.h>		// for void *_alloca(  size_t size ) , memory-allocating in stack
 #include<LMT_MATRIX.h>
 
 #define	IS_SQUARE	1
@@ -187,6 +188,19 @@ int		matAdd				(MATRIX* operand1,MATRIX*	operand2,MATRIX*	result)
 	for(size_t	i=0;i < (operand1->attr._m * operand1->attr._n) ; i++)
 		result->attr.bodyAdr[i] = 
 		operand1->attr.bodyAdr[i] + operand2->attr.bodyAdr[i];
+
+	return 1;
+}
+
+int		matMinus			(MATRIX* minuend ,MATRIX*	subtrahend	,MATRIX*	result)
+{
+	//---------------------
+	//	similiar to mat add
+	//	Hsien , 2012.09.07
+	//---------------------
+	for(size_t	i=0;i < (minuend->attr._m * minuend->attr._n) ; i++)
+		result->attr.bodyAdr[i] = 
+		minuend->attr.bodyAdr[i] - subtrahend->attr.bodyAdr[i];
 
 	return 1;
 }

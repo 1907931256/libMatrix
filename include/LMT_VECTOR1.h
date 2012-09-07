@@ -14,10 +14,6 @@
 #include<LMT_MATRIX.h>
 
 typedef struct	matrix_st	VECTOR						;
-//typedef int (*fp_type0)(VECTOR*,const double)				;
-//typedef int (*fp_type1)(VECTOR*,double*)				;
-//typedef	int	(*fp_type2)(VECTOR*,VECTOR*)				;
-//typedef	int	(*fp_type3)(VECTOR*,VECTOR*,VECTOR*)		;
 
 #define	_VECTOR(k)			struct{MATRIX_HEADER attr;ELEMTYPE body[k];}	// template macro to declare matrix object 	
 
@@ -28,16 +24,19 @@ int			vecInitialize		(VECTOR* v,const size_t length);
 int			vecGetValue			(VECTOR* v,const size_t	index,double* value);
 int			vecSetValue			(VECTOR* v,const size_t	index,const double value);
 extern int	(&vecSetAll)(VECTOR*,const double);	// alias function , reuse
-extern int	(&vecAssign)(VECTOR*,VECTOR*);
+extern int	(&vecAssign)(VECTOR* lhs,VECTOR* rhs);		// alias function , reuse
+														// operation: lhs = rhs;
+														// lhs = left-hand side	 , so on for rhs
 //-------------------
 //	exclusive vector operations
 //-------------------
-extern int	(&vecLength)(VECTOR*,double*);
-extern int	(&vecAdd)	(VECTOR*,VECTOR*,VECTOR*);	
+extern int	(&vecLength)(VECTOR* v	,double*	length);
+extern int	(&vecAdd)	(VECTOR* v1	,VECTOR* v2,VECTOR* vResult);	
+extern int	(&vecMinus)	(VECTOR* vMinuend,VECTOR* vSubtrahend,VECTOR* vResult);	// vResult  = vMinuend - vSubtrahend
 int		vecDotProduct		(VECTOR* v1,VECTOR* v2,double*	scalar);			//	scalar = v1 . v2
 int		vecCrossProduct		(VECTOR* v1,VECTOR* v2,VECTOR*	vPerpendicular);	// dimension-3 vector valid only
 
-extern int	(&vecScalarMultiply)(VECTOR*,const double,VECTOR*);
-int			vecUnit(VECTOR*,VECTOR*);
+extern int	(&vecScalarMultiply)(VECTOR* v,const double scalar,VECTOR* vResult);
+int			vecUnit(VECTOR* v,VECTOR* vUnit);
 
 #endif 

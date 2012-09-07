@@ -44,7 +44,7 @@ struct matrix_st
 	char			body;
 };
 
-MATRIX*	matCreateInStack(const size_t row,const size_t cols);				// use void *_malloca() , to create matrix in stack
+//MATRIX*	matCreateInStack(const size_t row,const size_t cols);				// use void *_malloca() , to create matrix in stack
 int		matInitialize	(MATRIX*,const size_t rows,const size_t columns);	// intializing matrix according to unique type-id
 																			// no dynamic(heap) matrix avaliable
 int		matIdentity		(MATRIX*);
@@ -70,13 +70,14 @@ int		matAssign		(MATRIX*	rhs,MATRIX*	lhs);			// rhp = right-hand side , lhs = rh
 
 int		matScalarMultiply	(MATRIX* left,const double	scalar		,MATRIX*	result);	//	result = scalar*left
 int		matMultiply			(MATRIX* left,MATRIX*	right,MATRIX*	result);	//	result = left*right
-int		matAdd				(MATRIX* operand1,MATRIX*	operand2,MATRIX*	result);	//	result = operand1 + operand2
+int		matAdd				(MATRIX* operand1,MATRIX*	operand2	,MATRIX*	result);	//	result = operand1 + operand2
+int		matMinus			(MATRIX* minuend ,MATRIX*	subtrahend	,MATRIX*	result);
 int		matNorm2			(MATRIX*,double*	norm2);										//	norm-2(normFrobenius) , such as vector	
 																							//	squart(sigma(element^2))																							//	generic definition for all matrix
 //---------------
 //	Advenced operation
 //---------------
-int		matDeterminent		(MATRIX*,double*	det);	// not implemented
+int		matDeterminant		(MATRIX*,double*	det);	// not implemented
 int		matInverse			(MATRIX*,MATRIX*);			// not implemented
 
 #endif
