@@ -5,7 +5,7 @@
 int func(void);
 int func(void)
 {
-	void* p = _malloca(sizeof(MATRIX));
+	void* p = _malloca(sizeof(MATRIX));	// raising stack overflow
 
 	if(!p)
 		return 0;

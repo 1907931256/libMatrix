@@ -10,9 +10,8 @@
 //----------------------------------------------------------------------------------
 #include<LMT_COORD.h>
 
-
-COORD*	(&coordBuildVector)(COORD*	end,COORD* start,VECTOR* vec) = vecMinus;
-void	(&coordFwrite)(COORD*,FILE* fp) = vecFwrite;
+COORD*	(&coordBuildVector)(COORD*	end,COORD* start,VECTOR* vec)	= vecMinus;
+void	(&coordFwrite)(COORD*,FILE* fp)								= vecFwrite;
 
 COORD*	array2Coord			(COORD*	coord,ELEMTYPE	a[])			// convert array form of coordinate into type COORD
 {
@@ -25,6 +24,18 @@ COORD*	array2Coord			(COORD*	coord,ELEMTYPE	a[])			// convert array form of coor
 
 	return coord;
 }
+
+void	coord2Array			(COORD*	coord,ELEMTYPE	a[])
+{
+	//----------------------------
+	//	directly assignment
+	//		3d,4d coordinate exclusively
+	//----------------------------
+	a[0] = coord->attr.bodyAdr[0];
+	a[1] = coord->attr.bodyAdr[1];
+	a[2] = coord->attr.bodyAdr[2];
+}
+
 COORD* coordScale(COORD* givenPoint
 				  ,COORD* scalePivot
 				  ,double i
@@ -38,14 +49,9 @@ COORD* coordScale(COORD* givenPoint
 	//			which i,j,k would affect scaleMatrix
 	//		Hsien , 2012.09.14
 	//----------------------------------------------------------------------
-	//MATRIX*		scaleMatrix/* = matMallocInStack(_DIM,_DIM)*/;
-	//VECTOR*		vecBuffer	/*= vecMallocInStack(_DIM)*/;
-
-	//scaleMatrix = matMallocInStack(_DIM,_DIM);
-	//vecBuffer	= vecMallocInStack(_DIM);
 	_MATRIX(_DIM,_DIM)		scaleMatrix;
 	_VECTOR(_DIM)			vecBuffer;
-	//vecBuffer	= (VECTOR*)matMallocInStack(_DIM,1);
+
 	matInitialize((MATRIX*)&scaleMatrix,_DIM,_DIM);
 	vecInitialize((VECTOR*)&vecBuffer,_DIM);
 

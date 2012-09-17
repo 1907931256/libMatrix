@@ -11,7 +11,7 @@ int main()
 	//					coordScale
 	//-------------------------------------------------------------
 	double	b;
-	double  a[3];
+	double  a[3],c[3];
 	VECTOR*		vecBuffer	= vecMallocInStack(_DIM);
 	for(int i=0;i<3;i++)
 		a[i] = (double)(rand()%10);
@@ -31,6 +31,7 @@ int main()
 	// done , but allocating in stack is not really stable
 	//	need to check it much more
 	//	Hsien , 2012.09.17
+	coord2Array(p1,c);		// done 
 
 	return 1;
 }
