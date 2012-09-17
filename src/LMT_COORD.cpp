@@ -3,7 +3,7 @@
 // ORIGIN AUTHOR	: Hsien
 // EDITOR			: Hsien, 2012.09.17
 // NOTES			:	
-//		function includeing:
+//		function including:
 //					1. scaling function(09/17)
 //					2. vector building(09/17)
 //					3. array conversion(09/17)
@@ -17,6 +17,7 @@ COORD*	array2Coord			(COORD*	coord,ELEMTYPE	a[])			// convert array form of coor
 {
 	//----------------------------
 	//	directly assignment
+	//		3d,4d coordinate exclusively
 	//----------------------------
 	coord->attr.bodyAdr[0] = a[0];
 	coord->attr.bodyAdr[1] = a[1];

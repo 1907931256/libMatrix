@@ -23,7 +23,7 @@ typedef struct	matrixHeader_st	MATRIX_HEADER;
 typedef	struct	matrix_st		MATRIX;			// the abstrct class of matrix/vector
 
 #define _MATRIX( m , n )		struct{MATRIX_HEADER attr;ELEMTYPE body[m][n];}	// template macro to declare matrix object 
-#define	matMallocInStack(m,n)	(MATRIX*)matInitialize2(_alloca(sizeof(MATRIX)),_alloca(sizeof(ELEMTYPE) * m * n),m,n)
+//#define	matMallocInStack(m,n)	(MATRIX*)matInitialize2(_alloca(sizeof(MATRIX)),_alloca(sizeof(ELEMTYPE) * m * n),m,n)
 																				// macro to allocating in stack  , would be do garbage-collation automatically
 																				// facility added by Hsien , 2012.09.17
 																				// expremental function , stack is need to deallocating as well
@@ -51,13 +51,12 @@ struct matrix_st
 	char			body;
 };
 
-//MATRIX*	matCreateInStack(const size_t row,const size_t cols);			// use void *_malloca() , to create matrix in stack
 MATRIX*		matInitialize2	(void* mat,void* body,const size_t rows,const size_t columns);
 MATRIX*		matInitialize	(MATRIX*,const size_t rows,const size_t columns);	// intializing matrix according to unique type-id
 																			// no dynamic(heap) matrix avaliable
 																			// return intialized/input reference of matrix
-/*int*/MATRIX*		matIdentity		(MATRIX*);
-/*int*/MATRIX*		matMarkId		(MATRIX*,const size_t	id);
+MATRIX*		matIdentity		(MATRIX*);
+MATRIX*		matMarkId		(MATRIX*,const size_t	id);
 
 void matFwrite(MATRIX*	mat,FILE*	fp);		// debuggin usage , do stream output
 
@@ -67,24 +66,24 @@ void matFwrite(MATRIX*	mat,FILE*	fp);		// debuggin usage , do stream output
 ELEMTYPE		matGetElement	(MATRIX*	
 						 ,const size_t	rowIndex
 						 ,const size_t	colIndex);			// index beginning from ZERO
-/*int*/MATRIX*		matGetSubmatrix	(MATRIX*	mainmatrix
+MATRIX*		matGetSubmatrix	(MATRIX*	mainmatrix
 						 ,const size_t	fr
 						 ,const size_t	lr
 						 ,const size_t	fc
 						 ,const size_t	lc
 						 ,MATRIX*	submatrix);			// index beginning from ZERO , return submatrix
 
-/*int*/MATRIX*		matSetElement	(MATRIX*	
+MATRIX*		matSetElement	(MATRIX*	
 						 ,const size_t	rowIndex
 						 ,const size_t	colIndex
 						 ,const double value);			// index beginning from ZERO
-/*int*/MATRIX*		matSetAll		(MATRIX*	,const double value);			// matrix magnitude
-/*int*/MATRIX*		matAssign		(MATRIX*	rhs,MATRIX*	lhs);				// rhp = right-hand side , lhs = rhs , return lhs
+MATRIX*		matSetAll		(MATRIX*	,const double value);			// matrix magnitude
+MATRIX*		matAssign		(MATRIX*	rhs,MATRIX*	lhs);				// rhp = right-hand side , lhs = rhs , return lhs
 
-/*int*/MATRIX*		matScalarMultiply	(MATRIX* left,const double	scalar		,MATRIX*	result);	//	result = scalar*left , return result
-/*int*/MATRIX*		matMultiply			(MATRIX* left,MATRIX*	right,MATRIX*	result);				//	result = left*right , return result
-/*int*/MATRIX*		matAdd				(MATRIX* operand1,MATRIX*	operand2	,MATRIX*	result);	//	result = operand1 + operand2
-/*int*/MATRIX*		matMinus			(MATRIX* minuend ,MATRIX*	subtrahend	,MATRIX*	result);	//  return result
+MATRIX*		matScalarMultiply	(MATRIX* left,const double	scalar		,MATRIX*	result);	//	result = scalar*left , return result
+MATRIX*		matMultiply			(MATRIX* left,MATRIX*	right,MATRIX*	result);				//	result = left*right , return result
+MATRIX*		matAdd				(MATRIX* operand1,MATRIX*	operand2	,MATRIX*	result);	//	result = operand1 + operand2
+MATRIX*		matMinus			(MATRIX* minuend ,MATRIX*	subtrahend	,MATRIX*	result);	//  return result
 ELEMTYPE		matNorm2(MATRIX* mat);					//	norm-2(normFrobenius) , such as vector	
 														//	squart(sigma(element^2))																							
 														//	generic definition for all matrix
@@ -93,7 +92,7 @@ ELEMTYPE		matNorm2(MATRIX* mat);					//	norm-2(normFrobenius) , such as vector
 //	Advenced operation
 //---------------
 ELEMTYPE		matDeterminant		(MATRIX*);	// not implemented
-/*int*/MATRIX*					matInverse		(MATRIX* mat,MATRIX* matAfterInverse);			// not implemented
+MATRIX*					matInverse		(MATRIX* mat,MATRIX* matAfterInverse);			// not implemented
 
 #endif
 																							

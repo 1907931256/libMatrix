@@ -39,16 +39,15 @@ MATRIX* matMarkId		(MATRIX* mat,const size_t	id)
 	return mat;
 }
 
-/*int*/MATRIX*		matInitialize2	(void* mat,void* body,const size_t rows,const size_t columns)		// intializing matrix according to unique type-id
+MATRIX*		matInitialize2	(void* mat,void* body,const size_t rows,const size_t columns)		// intializing matrix according to unique type-id
 {
-	//mat = _malloca(sizeof(MATRIX));
 	((MATRIX*)mat)->attr.bodyAdr = (ELEMTYPE*)body;
 	matInitialize((MATRIX*)mat,rows,columns);
 
 	return (MATRIX*)mat;
 }
 
-/*int*/MATRIX*		matInitialize	(MATRIX* mat,const size_t rows,const size_t columns)		// intializing matrix according to unique type-id
+MATRIX*		matInitialize	(MATRIX* mat,const size_t rows,const size_t columns)		// intializing matrix according to unique type-id
 {
 	//--------------------
 	//	do error prevent before	attribute setting
@@ -67,7 +66,7 @@ MATRIX* matMarkId		(MATRIX* mat,const size_t	id)
 	return mat;
 }
 
-/*int*/MATRIX*		matIdentity		(MATRIX*	mat)
+MATRIX*		matIdentity		(MATRIX*	mat)
 {
 	size_t rowIndex,colIndex;
 
@@ -101,11 +100,10 @@ ELEMTYPE		matGetElement	(MATRIX*	mat,const size_t	row,const size_t	col/*,double*
 		|| col >= mat->attr._n) // over-index condition , index greater/equal to length
 		return 0;
 
-	/*value =*/ return mat->attr.bodyAdr[row/*(row-1)*/ * mat->attr._n + col/*(col-1)*/];
+	return mat->attr.bodyAdr[row * mat->attr._n + col];
 
-	/*return 1;*/
 }
-/*int*/MATRIX*		matGetSubmatrix	(MATRIX*	mainMat
+MATRIX*		matGetSubmatrix	(MATRIX*	mainMat
 						 ,const size_t	fr
 						 ,const size_t	lr
 						 ,const size_t	fc
@@ -121,7 +119,7 @@ ELEMTYPE		matGetElement	(MATRIX*	mat,const size_t	row,const size_t	col/*,double*
 	size_t	sm,sn,elemShift;		// dimension of required submatrix
 	sm = lr - fr + 1;
 	sn = lc - fc + 1;
-	elemShift = /*(fr -1)*/fr * mainMat->attr._n + /*(fc -1)*/fc;
+	elemShift = fr * mainMat->attr._n + fc;
 
 	if(sm > subMat->attr._m
 		|| sn > subMat->attr._n)
@@ -137,7 +135,7 @@ ELEMTYPE		matGetElement	(MATRIX*	mat,const size_t	row,const size_t	col/*,double*
 
 	return /*1*/subMat;
 }
-/*int*/MATRIX*		matSetElement	(MATRIX*	mat,const size_t	row,const size_t	col,const double value)
+MATRIX*		matSetElement	(MATRIX*	mat,const size_t	row,const size_t	col,const double value)
 {
 	//---------------------
 	//	Over-index checking
@@ -150,17 +148,17 @@ ELEMTYPE		matGetElement	(MATRIX*	mat,const size_t	row,const size_t	col/*,double*
 		|| col >= mat->attr._n)		// over-index condition , index greater/equal to length
 		return 0;
 
-	mat->attr.bodyAdr[row/*(row-1)*/ * mat->attr._n + col/*(col-1)*/] = value;
+	mat->attr.bodyAdr[row * mat->attr._n + col] = value;
 
-	return /*1*/mat;
+	return mat;
 }
-/*int*/MATRIX*		matSetAll		(MATRIX*	mat,const double value)
+MATRIX*		matSetAll		(MATRIX*	mat,const double value)
 {
 	for(size_t i=0;i<(mat->attr._m * mat->attr._n);i++)
 		mat->attr.bodyAdr[i] = value;
-	return /*1*/mat;
+	return mat;
 }
-/*int*/MATRIX*		matAssign		(MATRIX*	rhs,MATRIX*	lhs)
+MATRIX*		matAssign		(MATRIX*	rhs,MATRIX*	lhs)
 {
 	//------------
 	//	if Dimension checking passed , directly
@@ -168,20 +166,20 @@ ELEMTYPE		matGetElement	(MATRIX*	mat,const size_t	row,const size_t	col/*,double*
 	//------------
 	for(size_t i=0;i<(rhs->attr._m * rhs->attr._n);i++)
 		rhs->attr.bodyAdr[i] = lhs->attr.bodyAdr[i];
-	return /*1*/lhs;
+	return lhs;
 }
-/*int*/MATRIX*	matScalarMultiply	(MATRIX* origin,const double	scalar		,MATRIX*	result)
+MATRIX*	matScalarMultiply	(MATRIX* origin,const double	scalar		,MATRIX*	result)
 {
 	//-------
-	//
+	//	all factor of matrix will be multiplied by the same scalar
 	//-------
 	for(size_t i=0;i<(origin->attr._m * origin->attr._n);i++)
 		result->attr.bodyAdr[i] 
 	= origin->attr.bodyAdr[i] * scalar;
 
-	return /*1*/result;
+	return result;
 }
-/*int*/MATRIX*		matMultiply			(MATRIX* left,MATRIX*	right		,MATRIX*	result)
+MATRIX*		matMultiply			(MATRIX* left,MATRIX*	right		,MATRIX*	result)
 {
 	//-------------
 	//	rowIndex : result-matrix's rowIndex
@@ -204,7 +202,7 @@ ELEMTYPE		matGetElement	(MATRIX*	mat,const size_t	row,const size_t	col/*,double*
 
 		return /*1*/result;
 }
-/*int*/MATRIX*	matAdd				(MATRIX* operand1,MATRIX*	operand2,MATRIX*	result)
+MATRIX*	matAdd				(MATRIX* operand1,MATRIX*	operand2,MATRIX*	result)
 {
 	//-------------------
 	//
@@ -213,10 +211,10 @@ ELEMTYPE		matGetElement	(MATRIX*	mat,const size_t	row,const size_t	col/*,double*
 		result->attr.bodyAdr[i] = 
 		operand1->attr.bodyAdr[i] + operand2->attr.bodyAdr[i];
 
-	return /*1*/result;
+	return result;
 }
 
-/*int*/MATRIX*		matMinus			(MATRIX* minuend ,MATRIX*	subtrahend	,MATRIX*	result)
+MATRIX*		matMinus			(MATRIX* minuend ,MATRIX*	subtrahend	,MATRIX*	result)
 {
 	//---------------------
 	//	similiar to mat add
@@ -226,10 +224,10 @@ ELEMTYPE		matGetElement	(MATRIX*	mat,const size_t	row,const size_t	col/*,double*
 		result->attr.bodyAdr[i] = 
 		minuend->attr.bodyAdr[i] - subtrahend->attr.bodyAdr[i];
 
-	return /*1*/result;
+	return result;
 }
 
-/*int*/ELEMTYPE		matNorm2			(MATRIX* mat/*,double*	norm2*/)
+ELEMTYPE		matNorm2			(MATRIX* mat/*,double*	norm2*/)
 {
 	//-----------------------------------------------------
 	//	Function Prototype Changed , return required value

@@ -96,7 +96,7 @@ void (&vecFwrite)(VECTOR*,FILE*) = matFwrite;
 
 /*int*/VECTOR*			vecUnit(VECTOR* v,VECTOR* vUnit)
 {
-	//-----------------
+	//----------------------------------------------------
 	//	implemented @ 7.Sep.2012
 	//	Function Prototype Changed , return required value
 	//		Hsien , 2012.09.07 , recommented by Peter
