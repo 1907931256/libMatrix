@@ -5,32 +5,37 @@
 // NOTES			:	vector structure and operations , inheritanted from matrix.h
 //						some of functions share the same function object with matrix library
 //						use function-pointer to rename these functions
+//	Log : 2012.09.17
+//			1. added new stack-constructor for vector
+//			2. change all funcs' prototype , return input reference of vector
 //----------------------------------------------------------------------------------
 #include<LMT_VECTOR1.h>
 
-int	(&vecSetAll)(VECTOR*,const double)	 =	matSetAll;
-int	(&vecAssign)(VECTOR*,VECTOR*)		 =	matAssign;
+/*int*/VECTOR*	(&vecSetAll)(VECTOR*,const double)	 =	matSetAll;
+/*int*/VECTOR*	(&vecAssign)(VECTOR*,VECTOR*)		 =	matAssign;
 ELEMTYPE	(&vecLength)(VECTOR*)		 =	matNorm2;
-int	(&vecAdd)	(VECTOR*,VECTOR*,VECTOR*)=	matAdd;		// added by Hsien 
-int	(&vecMinus)	(VECTOR*,VECTOR*,VECTOR*) = matMinus;
-int	(&vecScalarMultiply)(VECTOR*,const double,VECTOR*) = matScalarMultiply;
+/*int*/VECTOR*	(&vecAdd)	(VECTOR*,VECTOR*,VECTOR*)=	matAdd;		// added by Hsien 
+/*int*/VECTOR*	(&vecMinus)	(VECTOR*,VECTOR*,VECTOR*) = matMinus;
+/*int*/VECTOR*	(&vecScalarMultiply)(VECTOR*,const double,VECTOR*) = matScalarMultiply;
 
-int		vecInitialize(VECTOR* v,const size_t length)
+void (&vecFwrite)(VECTOR*,FILE*) = matFwrite;
+
+/*int*/VECTOR*		vecInitialize(VECTOR* v,const size_t length)
 {
 	if(!matInitialize((MATRIX*)v,length,1))		// as column vector
-		return 0;
+		return NULL;
 
-	return 1;
+	return v;
 }
-int			vecSetValue			(VECTOR* v,const size_t	index,const double value)
+/*int*/VECTOR*			vecSetValue			(VECTOR* v,const size_t	index,const double value)
 {
 	//-----------------------------------------------------
 	//		All index are normalized to beginning from ZERO
 	//		Hsien , 2012.09.07
 	//-----------------------------------------------------
 	if(!matSetElement((MATRIX*)v,index,0,value))
-		return 0;
-	return 1;
+		return NULL;
+	return v;
 }
 /*int*/ELEMTYPE			vecGetValue			(VECTOR* v,const size_t	index/*,double* value*/)
 {
@@ -45,7 +50,7 @@ int			vecSetValue			(VECTOR* v,const size_t	index,const double value)
 	//return 1;
 	return matGetElement((MATRIX*)v,index,0);
 }
-int		vecCrossProduct		(VECTOR* v1,VECTOR* v2,VECTOR*	vPerpendicular)
+/*int*/VECTOR*		vecCrossProduct		(VECTOR* v1,VECTOR* v2,VECTOR*	vPerpendicular)
 {
 	//-----------------
 	//	Dimension-3 ONLY:
@@ -69,7 +74,7 @@ int		vecCrossProduct		(VECTOR* v1,VECTOR* v2,VECTOR*	vPerpendicular)
 		v1->attr.bodyAdr[0] * v2->attr.bodyAdr[1]
 	-	v1->attr.bodyAdr[1]	* v2->attr.bodyAdr[0];
 
-	return 1;
+	return vPerpendicular;
 }
 
 /*int*/ELEMTYPE		vecDotProduct		(VECTOR* v1,VECTOR* v2/*,double*	scalar*/)
@@ -89,7 +94,7 @@ int		vecCrossProduct		(VECTOR* v1,VECTOR* v2,VECTOR*	vPerpendicular)
 	return scalar/*1*/;
 }
 
-int			vecUnit(VECTOR* v,VECTOR* vUnit)
+/*int*/VECTOR*			vecUnit(VECTOR* v,VECTOR* vUnit)
 {
 	//-----------------
 	//	implemented @ 7.Sep.2012
@@ -100,7 +105,7 @@ int			vecUnit(VECTOR* v,VECTOR* vUnit)
 	//vecLength(v,&length);					// calculate length of vector
 	vecScalarMultiply(v,1/vecLength(v)/*length*/,vUnit);	// vUnit = v/||v||;
 
-	return 1;
+	return vUnit;
 }
 
 ELEMTYPE	vecCrossProduct2D	(VECTOR* v1,VECTOR* v2)

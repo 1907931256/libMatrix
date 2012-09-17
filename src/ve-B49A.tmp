@@ -1,0 +1,28 @@
+#include<LMT_VECTOR1.h>
+
+#define _DIM	3		// if in HTM form , DIM should be 4 , to utilize all coordinate/vector
+
+VECTOR* vecScale(VECTOR* givenPoint,VECTOR* scalePivot,double i,double j,double k,VECTOR* scaledPoint)
+{
+	//----------------------------------------------------------------------
+	//	mathmatical model:
+	//		scaledPoint = scaleMatrix(givenPoint - scalePivot) + scalePivot
+	//			which i,j,k would affect scaleMatrix
+	//		Hsien , 2012.09.14
+	//----------------------------------------------------------------------
+	_MATRIX(_DIM,_DIM)		scaleMatrix;
+	_VECTOR(_DIM)			vecBuffer;
+
+	matInitialize((MATRIX*)&scaleMatrix,_DIM,_DIM);
+	vecInitialize((VECTOR*)&vecBuffer,_DIM);
+
+	matIdentity((MATRIX*)&scaleMatrix);
+
+	matSetElement((MATRIX*)&scaleMatrix,0,0,i);
+	matSetElement((MATRIX*)&scaleMatrix,0,0,j);
+	matSetElement((MATRIX*)&scaleMatrix,0,0,k);
+
+	matMultiply((MATRIX*)&scaleMatrix,(MATRIX*)&
+
+	return scaledPoint;
+}

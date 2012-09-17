@@ -4,21 +4,21 @@
 //----------------------------------------------------------------
 #include<LMT_VECTOR2.h>
 
-int	(&colVecInitialize)(VECTOR*,const size_t) = vecInitialize;
+/*int*/COL_VECTOR*	(&colVecInitialize)(VECTOR*,const size_t) = vecInitialize;
 
 
-int rowVecInitialize(ROW_VECTOR* rv,const size_t cols)
+/*int*/ROW_VECTOR* rowVecInitialize(ROW_VECTOR* rv,const size_t cols)
 {
 	//---------------
 	//	Repack matrix intialize function
 	//---------------
 	if(!matInitialize((MATRIX*)rv,1,cols))
-		return 0;
+		return NULL;
 
-	return 1;
+	return rv;
 }
 
-int		matGetRowVector	(MATRIX* mat,const size_t	row,ROW_VECTOR* rv)
+/*int*/ROW_VECTOR*		matGetRowVector	(MATRIX* mat,const size_t	row,ROW_VECTOR* rv)
 {
 	//------
 	//	extension usage of matGetSubmatrix
@@ -31,9 +31,9 @@ int		matGetRowVector	(MATRIX* mat,const size_t	row,ROW_VECTOR* rv)
 		,/*1*/0
 		,/*(rv->attr._n)*/(rv->attr._n)-1
 		,(MATRIX*)&rv);
-	return 1;
+	return rv;
 }
-int		matGetColVector	(MATRIX* mat,const size_t	col,COL_VECTOR* cv)
+/*int*/COL_VECTOR*		matGetColVector	(MATRIX* mat,const size_t	col,COL_VECTOR* cv)
 {
 	//-----------------------------------------------------
 	//	extension usage of matGetSubmatrix
@@ -46,5 +46,5 @@ int		matGetColVector	(MATRIX* mat,const size_t	col,COL_VECTOR* cv)
 		,col
 		,col
 		,(MATRIX*)&cv);
-	return 1;
+	return cv;
 }

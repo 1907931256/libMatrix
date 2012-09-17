@@ -1,4 +1,4 @@
-#include<vector.h>
+#include<LMT_VECTOR2.h>
 //#define MATRIX(m,n)	struct{int matId;static const size_t _m = m;/*static const*/ size_t _n/*=n*/;double body[m][n];}
 //#define ROW_VECTOR
 //#define COL_VECTOR
@@ -26,10 +26,10 @@ int main()
 	matInitialize((MATRIX*)&cv2,3,1);
 	//struct	st{int a;static const int i=3;}	m;
 
-	matGetElement	((MATRIX*)&mat,1,1,&buffer);
-	matGetElement	((MATRIX*)&mat,2,2,&buffer);
-	matGetElement	((MATRIX*)&mat,64,64,&buffer);
-	matGetElement	((MATRIX*)&mat,25,40,&buffer);
+	matGetElement	((MATRIX*)&mat,1,1/*,&buffer*/);
+	matGetElement	((MATRIX*)&mat,2,2/*,&buffer*/);
+	matGetElement	((MATRIX*)&mat,64,64/*,&buffer*/);
+	matGetElement	((MATRIX*)&mat,25,40/*,&buffer*/);
 	// successed
 
 	matSetElement	((MATRIX*)&mat,3,2,89.98);	// fine
@@ -40,7 +40,7 @@ int main()
 
 	matSetAll((MATRIX*)&rv,3);
 	matSetAll((MATRIX*)&cv,3);
-	vecDotProduct((ROW_VECTOR*)&rv,(COL_VECTOR*)&cv,&buffer);	//fine
+	vecDotProduct((ROW_VECTOR*)&rv,(COL_VECTOR*)&cv/*,&buffer*/);	//fine
 
 	matSetAll((MATRIX*)&mat3,32);
 	matSetElement((MATRIX*)&mat3,1,3,0);
@@ -58,7 +58,13 @@ int main()
 
 	matAdd((MATRIX*)&mat3,(MATRIX*)&mat4,(MATRIX*)&mat3);	// fine
 
-	matNorm2((MATRIX*)&mat3,&buffer);			// fine
+	matNorm2((MATRIX*)&mat3/*,&buffer*/);			// fine
+
+//	matFwrite((MATRIX*)&mat,stdout);
+//	matFwrite((MATRIX*)&mat2,stdout);
+	matFwrite((MATRIX*)&mat3,stdout);
+	matFwrite((MATRIX*)&mat4,stdout);
+
 
 	return 0;
 }

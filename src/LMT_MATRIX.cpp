@@ -15,6 +15,7 @@
 #include<string.h>
 #include<math.h>	
 #include<malloc.h>		// for void *_alloca(  size_t size ) , memory-allocating in stack
+#include<stdio.h>
 #include<LMT_MATRIX.h>
 
 #define	IS_SQUARE	1
@@ -32,10 +33,27 @@ static	char	isMatSquare		(MATRIX* mat)
 		return	NOT_SQUARE;
 }
 
-int		matInitialize	(MATRIX* mat,const size_t rows,const size_t columns)		// intializing matrix according to unique type-id
+MATRIX* matMarkId		(MATRIX* mat,const size_t	id)
+{
+	mat->attr.matId = id;
+	return mat;
+}
+
+/*int*/MATRIX*		matInitialize2	(void* mat,void* body,const size_t rows,const size_t columns)		// intializing matrix according to unique type-id
+{
+	//mat = _malloca(sizeof(MATRIX));
+	((MATRIX*)mat)->attr.bodyAdr = (ELEMTYPE*)body;
+	matInitialize((MATRIX*)mat,rows,columns);
+
+	return (MATRIX*)mat;
+}
+
+/*int*/MATRIX*		matInitialize	(MATRIX* mat,const size_t rows,const size_t columns)		// intializing matrix according to unique type-id
 {
 	//--------------------
 	//	do error prevent before	attribute setting
+	//	return Matrix* for cascade usage.
+	//	Hsien , 2012.09.17
 	//--------------------
 	if(rows == 0 || columns == 0)
 		return 0;	// null matrix is not allowed
@@ -46,15 +64,15 @@ int		matInitialize	(MATRIX* mat,const size_t rows,const size_t columns)		// inti
 
 	memset(mat->attr.bodyAdr,0,sizeof(ELEMTYPE)* mat->attr._m * mat->attr._n);		// reset internal buffer
 
-	return 1;
+	return mat;
 }
 
-int		matIdentity		(MATRIX*	mat)
+/*int*/MATRIX*		matIdentity		(MATRIX*	mat)
 {
 	size_t rowIndex,colIndex;
 
 	if(isMatSquare(mat) == NOT_SQUARE)
-		return 0;
+		return NULL;
 
 	memset(mat->attr.bodyAdr,0,sizeof(ELEMTYPE)* mat->attr._m * mat->attr._n);		// reset internal buffer
 	//---------------------------
@@ -67,7 +85,7 @@ int		matIdentity		(MATRIX*	mat)
 			mat->attr.bodyAdr[i]		= 1;
 	}
 
-	return 1;
+	return /*1*/mat;		// return reference to do cascade using
 }
 
 ELEMTYPE		matGetElement	(MATRIX*	mat,const size_t	row,const size_t	col/*,double*	value*/)
@@ -87,7 +105,7 @@ ELEMTYPE		matGetElement	(MATRIX*	mat,const size_t	row,const size_t	col/*,double*
 
 	/*return 1;*/
 }
-int		matGetSubmatrix	(MATRIX*	mainMat
+/*int*/MATRIX*		matGetSubmatrix	(MATRIX*	mainMat
 						 ,const size_t	fr
 						 ,const size_t	lr
 						 ,const size_t	fc
@@ -117,9 +135,9 @@ int		matGetSubmatrix	(MATRIX*	mainMat
 		elemShift += mainMat->attr._n;		// row shifting
 	}
 
-	return 1;
+	return /*1*/subMat;
 }
-int		matSetElement	(MATRIX*	mat,const size_t	row,const size_t	col,const double value)
+/*int*/MATRIX*		matSetElement	(MATRIX*	mat,const size_t	row,const size_t	col,const double value)
 {
 	//---------------------
 	//	Over-index checking
@@ -134,15 +152,15 @@ int		matSetElement	(MATRIX*	mat,const size_t	row,const size_t	col,const double v
 
 	mat->attr.bodyAdr[row/*(row-1)*/ * mat->attr._n + col/*(col-1)*/] = value;
 
-	return 1;
+	return /*1*/mat;
 }
-int		matSetAll		(MATRIX*	mat,const double value)
+/*int*/MATRIX*		matSetAll		(MATRIX*	mat,const double value)
 {
 	for(size_t i=0;i<(mat->attr._m * mat->attr._n);i++)
 		mat->attr.bodyAdr[i] = value;
-	return 1;
+	return /*1*/mat;
 }
-int		matAssign		(MATRIX*	rhs,MATRIX*	lhs)
+/*int*/MATRIX*		matAssign		(MATRIX*	rhs,MATRIX*	lhs)
 {
 	//------------
 	//	if Dimension checking passed , directly
@@ -150,9 +168,9 @@ int		matAssign		(MATRIX*	rhs,MATRIX*	lhs)
 	//------------
 	for(size_t i=0;i<(rhs->attr._m * rhs->attr._n);i++)
 		rhs->attr.bodyAdr[i] = lhs->attr.bodyAdr[i];
-	return 1;
+	return /*1*/lhs;
 }
-int		matScalarMultiply	(MATRIX* origin,const double	scalar		,MATRIX*	result)
+/*int*/MATRIX*	matScalarMultiply	(MATRIX* origin,const double	scalar		,MATRIX*	result)
 {
 	//-------
 	//
@@ -161,9 +179,9 @@ int		matScalarMultiply	(MATRIX* origin,const double	scalar		,MATRIX*	result)
 		result->attr.bodyAdr[i] 
 	= origin->attr.bodyAdr[i] * scalar;
 
-	return 1;
+	return /*1*/result;
 }
-int		matMultiply			(MATRIX* left,MATRIX*	right		,MATRIX*	result)
+/*int*/MATRIX*		matMultiply			(MATRIX* left,MATRIX*	right		,MATRIX*	result)
 {
 	//-------------
 	//	rowIndex : result-matrix's rowIndex
@@ -184,9 +202,9 @@ int		matMultiply			(MATRIX* left,MATRIX*	right		,MATRIX*	result)
 			= buffer;		// assign accumulation result into element
 		}
 
-		return 1;
+		return /*1*/result;
 }
-int		matAdd				(MATRIX* operand1,MATRIX*	operand2,MATRIX*	result)
+/*int*/MATRIX*	matAdd				(MATRIX* operand1,MATRIX*	operand2,MATRIX*	result)
 {
 	//-------------------
 	//
@@ -195,10 +213,10 @@ int		matAdd				(MATRIX* operand1,MATRIX*	operand2,MATRIX*	result)
 		result->attr.bodyAdr[i] = 
 		operand1->attr.bodyAdr[i] + operand2->attr.bodyAdr[i];
 
-	return 1;
+	return /*1*/result;
 }
 
-int		matMinus			(MATRIX* minuend ,MATRIX*	subtrahend	,MATRIX*	result)
+/*int*/MATRIX*		matMinus			(MATRIX* minuend ,MATRIX*	subtrahend	,MATRIX*	result)
 {
 	//---------------------
 	//	similiar to mat add
@@ -208,7 +226,7 @@ int		matMinus			(MATRIX* minuend ,MATRIX*	subtrahend	,MATRIX*	result)
 		result->attr.bodyAdr[i] = 
 		minuend->attr.bodyAdr[i] - subtrahend->attr.bodyAdr[i];
 
-	return 1;
+	return /*1*/result;
 }
 
 /*int*/ELEMTYPE		matNorm2			(MATRIX* mat/*,double*	norm2*/)
@@ -227,4 +245,19 @@ int		matMinus			(MATRIX* minuend ,MATRIX*	subtrahend	,MATRIX*	result)
 	return buffer;
 }
 
+void matFwrite(MATRIX*	mat,FILE*	fp)
+{
+	//----------------
+	//	regular output
+	//		print out : 1. ID
+	//				  : 2. values
+	//----------------
+	fprintf(fp,"mid:%d\n",mat->attr.matId);
 
+	for(size_t i=0;i<mat->attr._m;i++){
+		for(size_t j=0;j<mat->attr._n;j++){
+			fprintf(fp,"%.4f\t",mat->attr.bodyAdr[i*mat->attr._n + j]);
+		}
+		fprintf(fp,"\n");
+	}
+}

@@ -12,22 +12,30 @@ int main()
 
 	srand(time(NULL));
 	vecSetAll	((VECTOR*)&v1,(const double)(rand()%10));
-	vecGetValue	((VECTOR*)&v1,1/*(const size_t)(rand()%3)*/,&buffer);
+	vecGetValue	((VECTOR*)&v1,1/*(const size_t)(rand()%3)*//*,&buffer*/);
 	vecSetValue	((VECTOR*)&v2,2/*(const size_t)(rand()%3)*/,(const double)(rand()%10));
 	vecAssign	((VECTOR*)&v1,(VECTOR*)&v2);		// v1=v2
 
-	vecLength	((VECTOR*)&v1,&buffer);
+	vecLength	((VECTOR*)&v1/*,&buffer*/);
 	vecAdd		((VECTOR*)&v2,(VECTOR*)&v1,(VECTOR*)&v1);
 
-	vecDotProduct((VECTOR*)&v1,(VECTOR*)&v2,&buffer);
+	vecDotProduct((VECTOR*)&v1,(VECTOR*)&v2/*,&buffer*/);
 
 	vecSetAll	((VECTOR*)&v1,0);
 	vecSetAll	((VECTOR*)&v2,0);
 	vecSetValue	((VECTOR*)&v1,1,1);
 	vecSetValue	((VECTOR*)&v2,2,1);
 
+	for(int i=0;i<3;i++){
+		vecSetValue((VECTOR*)&v1,i,(double)(rand()%10));
+		vecSetValue((VECTOR*)&v2,i,(double)(rand()%10));
+	}
+
 	vecCrossProduct((VECTOR*)&v1,(VECTOR*)&v2,(VECTOR*)&v3);	// done , all func worked well
 																// Hsien , 2012.09.06
+	vecFwrite((VECTOR*)&v1,stdout);
+	vecFwrite((VECTOR*)&v2,stdout);
+	vecFwrite((VECTOR*)&v3,stdout);
 
 	return 1;
 }

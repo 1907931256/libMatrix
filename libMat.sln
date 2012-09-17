@@ -5,6 +5,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libMat", "libMat\libMat.vcp
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test", "test\test.vcproj", "{9AA725FC-B53E-4461-BDE3-EB677FB24B0D}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libVecScale", "libVecScale\libVecScale.vcproj", "{04BD0619-9CA3-42BA-8B4E-9EE67C95C163}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -19,6 +21,10 @@ Global
 		{9AA725FC-B53E-4461-BDE3-EB677FB24B0D}.Debug|Win32.Build.0 = Debug|Win32
 		{9AA725FC-B53E-4461-BDE3-EB677FB24B0D}.Release|Win32.ActiveCfg = Release|Win32
 		{9AA725FC-B53E-4461-BDE3-EB677FB24B0D}.Release|Win32.Build.0 = Release|Win32
+		{04BD0619-9CA3-42BA-8B4E-9EE67C95C163}.Debug|Win32.ActiveCfg = Debug|Win32
+		{04BD0619-9CA3-42BA-8B4E-9EE67C95C163}.Debug|Win32.Build.0 = Debug|Win32
+		{04BD0619-9CA3-42BA-8B4E-9EE67C95C163}.Release|Win32.ActiveCfg = Release|Win32
+		{04BD0619-9CA3-42BA-8B4E-9EE67C95C163}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
