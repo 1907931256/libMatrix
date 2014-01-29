@@ -40,6 +40,6 @@ ELEMTYPE		vecDotProduct		(VECTOR* v1,VECTOR* v2);			//	scalar = v1 . v2
 ELEMTYPE	vecCrossProduct2D	(VECTOR* v1,VECTOR* v2);							// dimension-2 vector valid only , Hsien , 2012.09.07
 																					// return = v1[0]*v2[1] + v1[1]*v2[0] , single component of other two parts of vector
 extern /*int*/VECTOR*	(&vecScalarMultiply)(VECTOR* v,const double scalar,VECTOR* vResult);
-/*int*/VECTOR*			vecUnit(VECTOR* v,VECTOR* vUnit);
+/*int*/VECTOR*			vecUnit(VECTOR* v/*,VECTOR* vUnit*/);
 
 #endif 

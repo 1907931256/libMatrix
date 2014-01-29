@@ -23,7 +23,7 @@ typedef struct	matrixHeader_st	MATRIX_HEADER;
 typedef	struct	matrix_st		MATRIX;			// the abstrct class of matrix/vector
 
 #define _MATRIX( m , n )		struct{MATRIX_HEADER attr;ELEMTYPE body[m][n];}	// template macro to declare matrix object 
-//#define	matMallocInStack(m,n)	(MATRIX*)matInitialize2(_alloca(sizeof(MATRIX)),_alloca(sizeof(ELEMTYPE) * m * n),m,n)
+#define	matMallocInStack(m,n)	(MATRIX*)matInitialize2(_alloca(sizeof(MATRIX)),_alloca(sizeof(ELEMTYPE) * m * n),m,n)
 																				// macro to allocating in stack  , would be do garbage-collation automatically
 																				// facility added by Hsien , 2012.09.17
 																				// expremental function , stack is need to deallocating as well
@@ -56,7 +56,7 @@ MATRIX*		matInitialize	(MATRIX*,const size_t rows,const size_t columns);	// inti
 																			// no dynamic(heap) matrix avaliable
 																			// return intialized/input reference of matrix
 MATRIX*		matIdentity		(MATRIX*);
-MATRIX*		matMarkId		(MATRIX*,const size_t	id);
+MATRIX*		matMarkId		(MATRIX*,const int	id);
 
 void matFwrite(MATRIX*	mat,FILE*	fp);		// debuggin usage , do stream output
 

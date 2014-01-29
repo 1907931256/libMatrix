@@ -58,10 +58,6 @@ void (&vecFwrite)(VECTOR*,FILE*) = matFwrite;
 	//	in three-dimensional space , definition from WIKI
 	//-----------------
 
-	//-----------------
-	//	Dimension check
-	//-----------------
-
 	vPerpendicular->attr.bodyAdr[0] = 
 		v1->attr.bodyAdr[1] * v2->attr.bodyAdr[2]
 	-	v1->attr.bodyAdr[2]	* v2->attr.bodyAdr[1];
@@ -94,7 +90,7 @@ void (&vecFwrite)(VECTOR*,FILE*) = matFwrite;
 	return scalar/*1*/;
 }
 
-/*int*/VECTOR*			vecUnit(VECTOR* v,VECTOR* vUnit)
+/*int*/VECTOR*			vecUnit(VECTOR* v/*,VECTOR* vUnit*/)
 {
 	//----------------------------------------------------
 	//	implemented @ 7.Sep.2012
@@ -103,9 +99,9 @@ void (&vecFwrite)(VECTOR*,FILE*) = matFwrite;
 	//----------------------------------------------------
 	//double length = 0;
 	//vecLength(v,&length);					// calculate length of vector
-	vecScalarMultiply(v,1/vecLength(v)/*length*/,vUnit);	// vUnit = v/||v||;
+	vecScalarMultiply(v,1/vecLength(v)/*length*/,v/*vUnit*/);	// vUnit = v/||v||;
 
-	return vUnit;
+	return /*vUnit*/v;
 }
 
 ELEMTYPE	vecCrossProduct2D	(VECTOR* v1,VECTOR* v2)

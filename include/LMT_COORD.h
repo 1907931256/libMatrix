@@ -19,11 +19,11 @@ COORD*	array2Coord			(COORD*	coord,ELEMTYPE	a[]);			// convert array form of coo
 void	coord2Array			(COORD*	coord,ELEMTYPE	a[]);			// inconversion of array
 
 extern	COORD*		(&coordBuildVector)(COORD*	end,COORD* start,VECTOR* vec);	// vec = start - end
-COORD*	coordScale	(COORD* givenPoint
-					 ,COORD* scalePivot
-					 ,double i
-					 ,double j
-					 ,double k
-					 ,COORD* scaledPoint);		// scaling 
+//COORD*	coordScale	(COORD* givenPoint
+//					 ,COORD* scalePivot
+//					 ,double i
+//					 ,double j
+//					 ,double k
+//					 /*,COORD* scaledPoint*/);		// scaling 
 
 #endif	_COORD_H

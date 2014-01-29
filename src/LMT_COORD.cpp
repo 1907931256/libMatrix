@@ -37,34 +37,35 @@ void	coord2Array			(COORD*	coord,ELEMTYPE	a[])
 	a[2] = coord->attr.bodyAdr[2];
 }
 
-COORD* coordScale(COORD* givenPoint
-				  ,COORD* scalePivot
-				  ,double i
-				  ,double j
-				  ,double k
-				  ,COORD* scaledPoint)
-{
-	//----------------------------------------------------------------------
-	//	mathmatical model:
-	//		scaledPoint = scaleMatrix(givenPoint - scalePivot) + scalePivot
-	//			which i,j,k would affect scaleMatrix
-	//		Hsien , 2012.09.14
-	//----------------------------------------------------------------------
-	_MATRIX(_DIM,_DIM)		scaleMatrix;
-	_VECTOR(_DIM)			vecBuffer;
-
-	matInitialize((MATRIX*)&scaleMatrix,_DIM,_DIM);
-	vecInitialize((VECTOR*)&vecBuffer,_DIM);
-
-	matIdentity((MATRIX*)&scaleMatrix);
-
-	matSetElement((MATRIX*)&scaleMatrix,0,0,i);	// set-up scaling matrix , factor as diagonals
-	matSetElement((MATRIX*)&scaleMatrix,1,1,j);
-	matSetElement((MATRIX*)&scaleMatrix,2,2,k);
-
-	vecMinus((VECTOR*)givenPoint,(VECTOR*)scalePivot,(VECTOR*)&vecBuffer);
-	matMultiply((MATRIX*)&scaleMatrix,(MATRIX*)&vecBuffer,(VECTOR*)&vecBuffer);
-	vecAdd((VECTOR*)&vecBuffer,(VECTOR*)scalePivot,(VECTOR*)scaledPoint);
-
-	return scaledPoint;
-}
+//COORD* coordScale(COORD* givenPoint
+//				  ,COORD* scalePivot
+//				  ,double i
+//				  ,double j
+//				  ,double k
+///*				  ,COORD* scaledPoint*/)
+//{
+//	//----------------------------------------------------------------------
+//	//	mathmatical model:
+//	//		scaledPoint = scaleMatrix(givenPoint - scalePivot) + scalePivot
+//	//			which i,j,k would affect scaleMatrix
+//	//		Hsien , 2012.09.14
+//	//----------------------------------------------------------------------
+//	_MATRIX(_DIM,_DIM)		scaleMatrix;
+//	_VECTOR(_DIM)			vecBuffer;
+//
+//	matInitialize((MATRIX*)&scaleMatrix,_DIM,_DIM);
+//	vecInitialize((VECTOR*)&vecBuffer,_DIM);
+//
+//	matIdentity((MATRIX*)&scaleMatrix);
+//
+//	matSetElement((MATRIX*)&scaleMatrix,0,0,i);	// set-up scaling matrix , factor as diagonals
+//	matSetElement((MATRIX*)&scaleMatrix,1,1,j);
+//	matSetElement((MATRIX*)&scaleMatrix,2,2,k);
+//
+//	coordBuildVector	(givenPoint				,scalePivot			,(VECTOR*)givenPoint);			// vector = given - pivot
+//	matMultiply			((MATRIX*)&scaleMatrix	,(MATRIX*)givenPoint,(VECTOR*)givenPoint);			// scaled vector = scale matrix  * vector
+//	vecAdd				((VECTOR*)givenPoint	,(VECTOR*)scalePivot,(VECTOR*)givenPoint);			// result point = scaled vector + pivot
+//																									// all manipulator were apllied on givenPoint
+//
+//	return /*scaledPoint*/givenPoint;
+//}

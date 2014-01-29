@@ -16,6 +16,7 @@
 #include<math.h>	
 #include<malloc.h>		// for void *_alloca(  size_t size ) , memory-allocating in stack
 #include<stdio.h>
+#include<errno.h>
 #include<LMT_MATRIX.h>
 
 #define	IS_SQUARE	1
@@ -33,7 +34,7 @@ static	char	isMatSquare		(MATRIX* mat)
 		return	NOT_SQUARE;
 }
 
-MATRIX* matMarkId		(MATRIX* mat,const size_t	id)
+MATRIX* matMarkId		(MATRIX* mat,const int	id)
 {
 	mat->attr.matId = id;
 	return mat;
@@ -238,6 +239,8 @@ ELEMTYPE		matNorm2			(MATRIX* mat/*,double*	norm2*/)
 	for(size_t i=0;i< (mat->attr._m * mat->attr._n); i++)
 		buffer += pow(mat->attr.bodyAdr[i],2);
 	/**norm2*/buffer = sqrt(buffer);
+	if(errno == EDOM)
+		return 0;
 
 	/*return 1;*/
 	return buffer;
